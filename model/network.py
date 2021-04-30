@@ -11,11 +11,10 @@ class TriclopsNet(nn.Module):
       Network for detecting objects, generate depth map and identify plane surfaces
     '''
 
-    def __init__(self):
+    def __init__(self, plane_config, yolo_config):
         super(TriclopsNet, self).__init__()
         """
           Get required configuration for all the 3 models
-  
         """
 
         # use_pretrained = False if path is None else True
@@ -24,9 +23,9 @@ class TriclopsNet(nn.Module):
 
         self.depth_decoder = MidasDecoder()
 
-        self.bbox_decoder = Darknet(cfg='path to config') # Fill
+        self.bbox_decoder = Darknet(cfg=yolo_config)  # Fill
 
-        self.plane_decoder = MaskRCNN(config='configuration') # Fill
+        self.plane_decoder = MaskRCNN(config=plane_config)  # Fill
 
         self.conv1 = nn.Conv2d(in_channels=512, out_channels=256, kernel_size=(1, 1), padding=0, bias=False)
         self.conv2 = nn.Conv2d(in_channels=1024, out_channels=512, kernel_size=(1, 1), padding=0, bias=False)
@@ -58,7 +57,8 @@ class TriclopsNet(nn.Module):
 
         if planer:
             input = [input_x, [1, 1, 1, 1]]
-            plane_out = self.plane_decoder(input, [layer_1, layer_2, layer_3, layer_4])
+            mode = 'training'
+            plane_out = self.plane_decoder(input, mode, [layer_1, layer_2, layer_3, layer_4])
         else:
             plane_out = None
 
