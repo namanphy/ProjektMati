@@ -232,10 +232,10 @@ class Darknet(nn.Module):
         self.seen = np.array([0], dtype=np.int64)  # (int64) number of images seen during training
         self.info(verbose) if not ONNX_EXPORT else None  # print model description
 
-    def forward(self, x, augment=False, verbose=False):
+    def forward(self, x, Yolo_1, Yolo_0, augment=False, verbose=False):
 
         if not augment:
-            return self.forward_once(x)
+            return self.forward_once(x, Yolo_1, Yolo_0,)
         else:  # Augment images (inference and test only) https://github.com/ultralytics/yolov3/issues/931
             img_size = x.shape[-2:]  # height, width
             s = [0.83, 0.67]  # scales
@@ -245,7 +245,7 @@ class Darknet(nn.Module):
                                     torch_utils.scale_img(x, s[1], same_shape=False),  # scale
                                     )):
                 # cv2.imwrite('img%g.jpg' % i, 255 * xi[0].numpy().transpose((1, 2, 0))[:, :, ::-1])
-                y.append(self.forward_once(xi)[0])
+                y.append(self.forward_once(xi, Yolo_1, Yolo_0)[0])
 
             y[1][..., :4] /= s[0]  # scale
             y[1][..., 0] = img_size[1] - y[1][..., 0]  # flip lr
