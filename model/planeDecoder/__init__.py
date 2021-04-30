@@ -1,1 +1,1 @@
-from .model import MaskRCNN
+from .decoder import MaskRCNN
