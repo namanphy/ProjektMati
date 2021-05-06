@@ -1,6 +1,6 @@
 <h1 align="center">Projekt Triclops</h1>
 
-Triclops is in Greek which means Depth
+Triclops - from the DragonBallZ world - is ancient group of three-eyed aliens.
 
 ---
 
@@ -52,11 +52,23 @@ and pass the final activations from the encoder to three different decoders.
 Each of the three different networks were using three different backbones : 
 
 MidasNet - ResNext101_32x8d_wsl
+
 Planercnn - ResNet101
+
 Yolov3 - Darknet-53
 
 ResNext101 - This has been finalised as the encoder as this is being offered by facebook and 
 is trained on millions of images.
 
 ### *Upcoming*
-1. 
+1. The Dataset and Dataloaders are in developement. After this the data(images) can be loaded 
+in dataloaders for each type of decoder.
+
+2. Then the training loop will be setup.
+
+3. Loss functions will be identified and experimented.
+
+4. Inference loop will be developed.
+
+5. Code documentation and project documentation.
+
