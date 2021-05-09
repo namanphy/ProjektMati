@@ -1,4 +1,4 @@
-<h1 align="center">Projekt Triclops</h1>
+<h1 align="center">Projekt Triclops ☘️</h1>
 
 Triclops - from the DragonBallZ world - is ancient group of three-eyed aliens.
 
