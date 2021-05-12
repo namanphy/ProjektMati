@@ -116,10 +116,14 @@ class TriclopsDataset(Dataset):
         self.rect = False if self.image_weights else bbox_params.get('rect', False)
         self.mosaic = False  # load 4 images at a time into a mosaic (only during training)
 
-        # 007 - check
-        # Define labels
-        self.label_files = [x.replace('images', 'labels').replace(os.path.splitext(x)[-1], '.txt')
-                           for x in self.img_files]
+        # Define labels - replacing this as image names also has `images` strings
+        self.label_files = []
+        for x in self.img_files:
+            x = x.split(os.sep)
+            x[3] = 'labels'
+            x[4] = x[4].replace(os.path.splitext(x[4])[-1], '.txt')
+            x = os.sep.join(x)
+            self.label_files.append(x)
 
         # Rectangular Training  https://github.com/ultralytics/yolov3/issues/232
         if self.rect:
@@ -169,6 +173,7 @@ class TriclopsDataset(Dataset):
                     with open(file, 'r') as f:
                         l = np.array([x.split() for x in f.read().splitlines()], dtype=np.float32)
                 except:
+                    # print(i, file) - debugging missing
                     nm += 1  # print('missing labels for image %s' % self.img_files[i])  # file missing
                     continue
 
