@@ -1,37 +1,74 @@
-## Welcome to GitHub Pages
+<h1 align="center">Projekt Triclops ☘️</h1>
 
-You can use the [editor on GitHub](https://github.com/namanphy/ProjektTriclops/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Triclops - from the DragonBallZ world - is ancient group of three-eyed aliens.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+---
 
-### Markdown
+Projekt Triclops: A DNN for object detection, segmentation and depth estimation. The entire dataset was 
+created from scraping images. The DNN was custom made inspired from Encoder-Decoder architecture.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+The idea here is to create a single network that can perform 3 different tasks 
+simultaneously:
 
-```markdown
-Syntax highlighted code block
+- Able to perform Object Detection
+- Able to perform Depth Map Generation
+- Able to perform Plane Surface Identification
 
-# Header 1
-## Header 2
-### Header 3
+# Architecture
 
-- Bulleted
-- List
+<div align="center">
+<img src="docs/projektTriclops.png" >
+</div>
 
-1. Numbered
-2. List
 
-**Bold** and _Italic_ and `Code` text
+# Dataset
+The data used for the training of the model is scraped from the internet for
+people wearing hardhat, masks, PPE and boots.
+The idea here is to use pre-trained networks and use their outputs as the ground truth data:
 
-[Link](url) and ![Image](src)
-```
+ - MidasNet Network for depth maps
+ - Yolov3 Network for object detection
+ - PlanerCNN Network for identifying plane surfaces
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
+The steps taken to create the dataset are:
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/namanphy/ProjektTriclops/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+1. For object detection - use YoloV3 annotation tool to draw bounding box for the labels and 
+generate required files as mentioned here.
+2. Use MidasNet by Intel to generate the depthmap for the above images.
+3. Use Planercnn to generate plane segmentations of the above images.
 
-### Support or Contact
+#### *Upcoming*
+A Youtube Video of indoor surfaces will be used create additional data by generating frames from video
+and then used them to generate the PlanerCNN output.
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+
+# Model Development
+
+The model is based on Encoder-Decoder Architecture. The strategy is to use a common backbone
+and pass the final activations from the encoder to three different decoders.
+
+### Encoder  
+Each of the three different networks were using three different backbones : 
+
+MidasNet - ResNext101_32x8d_wsl
+
+Planercnn - ResNet101
+
+Yolov3 - Darknet-53
+
+ResNext101 - This has been finalised as the encoder as this is being offered by facebook and 
+is trained on millions of images.
+
+### *Upcoming*
+1. The Dataset and Dataloaders are in developement. After this the data(images) can be loaded 
+in dataloaders for each type of decoder.
+
+2. Then the training loop will be setup.
+
+3. Loss functions will be identified and experimented.
+
+4. Inference loop will be developed.
+
+5. Code documentation and project documentation.
+
