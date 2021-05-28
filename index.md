@@ -17,7 +17,7 @@ simultaneously:
 # Architecture
 
 <div align="center">
-<img src="https://github.com/namanphy/ProjektTriclops/blob/main/docs/projektTriclops.PNG" />
+<img src="https://github.com/namanphy/ProjektTriclops/blob/main/docs/projektTriclops.png" />
 </div>
 
 
