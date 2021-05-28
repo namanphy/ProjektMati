@@ -16,9 +16,9 @@ simultaneously:
 
 # Architecture
 
-<div align="center">
+<!-- <div align="center"> -->
 ![](projektTriclops.png)
-</div>
+<!-- </div> -->
 
 
 # Dataset
