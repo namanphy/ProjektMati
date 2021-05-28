@@ -17,7 +17,7 @@ simultaneously:
 # Architecture
 
 <div align="center">
-! [](https://github.com/namanphy/ProjektTriclops/blob/main/docs/projektTriclops.png)
+![](projektTriclops.png)
 </div>
 
 
