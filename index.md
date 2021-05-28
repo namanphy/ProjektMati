@@ -17,7 +17,10 @@ simultaneously:
 # Architecture
 
 <!-- <div align="center"> -->
-![](projektTriclops.png)
+from IPython.display import Image
+Image(filename="projektTriclops.png")
+
+<!-- ![](projektTriclops.png) -->
 <!-- </div> -->
 
 
