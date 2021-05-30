@@ -86,6 +86,7 @@ class TriclopsDataset(Dataset):
             self.img_files = [x.replace('/', os.sep) for x in f.read().splitlines()  # os-agnostic
                               if os.path.splitext(x)[-1].lower() in img_formats]
 
+        # * 007 - image paths for planercnn
         self.imagePaths = self.img_files
 
         n = len(self.img_files)
